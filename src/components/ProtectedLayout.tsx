@@ -18,7 +18,7 @@ export default function App() {
     }
 
     if (!auth) {
-      navigate("/login")
+      navigate("/login");
     } else {
       setIsAuth(true);
     }

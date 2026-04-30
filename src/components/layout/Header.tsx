@@ -3,8 +3,12 @@ import Ner from "../../assets/images/Ministry_of_Agriculture_India.svg";
 import Prastuti from "../../assets/images/prastuti-db-logo.svg";
 import Pragyanlogo from "../../assets/images/pragyanLogo.png";
 import "react-tooltip/dist/react-tooltip.css";
+import { useAuth } from "../../routes/AuthContext";
+import { MiddleHeader } from "./mdHeader";
 
 const Header = (): JSX.Element => {
+  const username = localStorage.getItem("username");
+  const { isAuthenticated } = useAuth();
   return (
     <header className="SMV__header">
       <section className="BI__header__container">
@@ -44,6 +48,7 @@ const Header = (): JSX.Element => {
           </div>
         </div>
       </section>
+      {username !== null && isAuthenticated && <MiddleHeader />}
     </header>
   );
 };

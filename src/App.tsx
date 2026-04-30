@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
+import { useAuth } from "./routes/AuthContext";
 
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
@@ -14,6 +15,20 @@ import Overview from "./routes/overview-page";
 import SchemeView from "./routes/scheme-view";
 import IframeDashboard from "./routes/iframeDashboard";
 
+// Protected Route
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  // console.log("salt value response: isAuthenticated>>>>>>>> ", isAuthenticated);
+  return isAuthenticated ? children : <Navigate to="/" />;
+};
+
+// const UnProtectedRoute = ({ children }) => {
+//   const { isAuthenticated } = useAuth();
+//   // console.log("salt value response: isAuthenticated>>>>>>>> ", isAuthenticated);
+
+//   return isAuthenticated ? <Navigate to="/" /> : children;
+// };
+
 function App(): JSX.Element {
   const location = useLocation();
 
@@ -26,11 +41,29 @@ function App(): JSX.Element {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
         <Route path="/homes" element={<Home />} />
-        <Route path="/overView" element={<Overview />} />
-        <Route path="/schemeView" element={<SchemeView />} />
+        <Route
+          path="/overView"
+          element={
+            <ProtectedRoute>
+              <Overview />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/schemeView"
+          element={
+            <ProtectedRoute>
+              <SchemeView />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/superset/dashboards/:embedId"
-          element={<IframeDashboard />}
+          element={
+            <ProtectedRoute>
+              <IframeDashboard />
+            </ProtectedRoute>
+          }
         />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

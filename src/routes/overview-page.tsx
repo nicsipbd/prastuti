@@ -1,9 +1,4 @@
-import {
-  TrendingUp,
-  Building2,
-  CheckCircle,
-  Sparkles,
-} from "lucide-react";
+import { TrendingUp, Building2, CheckCircle, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { StatCard } from "../components/layout/stat-card";
 import { KPIChart } from "../components/layout/kpi-chart";
@@ -31,7 +26,6 @@ export default function OverviewPage() {
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
     navigate("/login"); // ✅ SPA navigation
-
   };
 
   return (
